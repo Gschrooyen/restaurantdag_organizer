@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Tue Mar 03 22:56:20 CET 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0170-a266-5581-00000a520600 
+on database directory D:\Personal_projects\restaurantdag_organizer\restaurantdag-test with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@77556fd 
+Loaded from file:/C:/Users/gschr/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=11+28
+user.dir=D:\Personal_projects\restaurantdag_organizer
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
