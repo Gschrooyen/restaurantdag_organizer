@@ -1,5 +1,7 @@
 package be.gschrooyen.restaurantdag.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -17,7 +19,7 @@ public class Restaurantdag {
     private LocalDate datum;
     @OneToMany
     private List<Inschrijving> inschrijvingen;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Gerecht> gerechten;
 
     public Restaurantdag() {
@@ -29,4 +31,54 @@ public class Restaurantdag {
         this.gerechten = ger;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getNaam() {
+        return naam;
+    }
+
+    public void setNaam(String naam) {
+        this.naam = naam;
+    }
+
+    public LocalDate getDatum() {
+        return datum;
+    }
+
+    public void setDatum(LocalDate datum) {
+        this.datum = datum;
+    }
+
+    public List<Inschrijving> getInschrijvingen() {
+        return inschrijvingen;
+    }
+
+    public void setInschrijvingen(List<Inschrijving> inschrijvingen) {
+        this.inschrijvingen = inschrijvingen;
+    }
+
+    public List<Gerecht> getGerechten() {
+        return gerechten;
+    }
+
+    public void setGerechten(List<Gerecht> gerechten) {
+        this.gerechten = gerechten;
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurantdag{" +
+                "id=" + id +
+                ", naam='" + naam + '\'' +
+                ", datum=" + datum +
+                ", inschrijvingen=" + inschrijvingen +
+                ", gerechten=" + gerechten +
+                '}';
+    }
 }

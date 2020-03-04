@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
 public class RestaurantdagService {
     private final RestaurantdagRepository repository;
 
