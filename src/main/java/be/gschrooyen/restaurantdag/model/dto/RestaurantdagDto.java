@@ -11,15 +11,17 @@ import java.util.List;
 
 public class RestaurantdagDto {
 
-    @NotNull
     private String naam;
-    @NotNull
-    @Min(0)
-    private long epochDate;
-    @NotEmpty
+    private LocalDateTime epochDate;
     private List<GerechtDto> gerechten;
 
     public RestaurantdagDto() {
+    }
+
+    public RestaurantdagDto(String naam, LocalDateTime epochDate, List<GerechtDto> gerechten) {
+        this.naam = naam;
+        this.epochDate = epochDate;
+        this.gerechten = gerechten;
     }
 
     public String getNaam() {
@@ -30,11 +32,11 @@ public class RestaurantdagDto {
         this.naam = naam;
     }
 
-    public LocalDate getEpochDate() {
-        return LocalDate.ofEpochDay(this.epochDate);
+    public LocalDateTime getEpochDate() {
+        return this.epochDate;
     }
 
-    public void setEpochDate(long epochDate) {
+    public void setEpochDate(LocalDateTime epochDate) {
         this.epochDate = epochDate;
     }
 

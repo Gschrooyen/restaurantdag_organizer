@@ -1,6 +1,0 @@
-spring:
-  jpa:
-    hibernate:
-      dialect: org.hibernate.dialect.DerbyTenSevenDialect
-  datasource:
-    driver-class-name: org.apache.derby.iapi.jdbc.AutoloadedDriver

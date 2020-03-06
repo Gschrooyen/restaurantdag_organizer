@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ public class Restaurantdag {
     @NotNull
     private String naam;
     @NotNull
-    private LocalDate datum;
+    private LocalDateTime datum;
     @OneToMany
     private List<Inschrijving> inschrijvingen;
     @OneToMany(cascade = CascadeType.ALL)
@@ -25,10 +26,9 @@ public class Restaurantdag {
     public Restaurantdag() {
     }
 
-    public Restaurantdag(String naam, LocalDate datum, List<Gerecht> ger) {
+    public Restaurantdag(String naam, LocalDateTime datum) {
         this.naam = naam;
         this.datum = datum;
-        this.gerechten = ger;
     }
 
     public long getId() {
@@ -47,11 +47,11 @@ public class Restaurantdag {
         this.naam = naam;
     }
 
-    public LocalDate getDatum() {
+    public LocalDateTime getDatum() {
         return datum;
     }
 
-    public void setDatum(LocalDate datum) {
+    public void setDatum(LocalDateTime datum) {
         this.datum = datum;
     }
 

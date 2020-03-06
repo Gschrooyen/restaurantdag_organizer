@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Wed Mar 04 08:26:57 CET 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0170-a470-c0ef-00000c4fa3c0 
-on database directory D:\Personal_projects\restaurantdag_organizer\restaurantdag with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@77556fd 
+Fri Mar 06 08:52:32 CET 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0170-aed4-e484-0000097e5f40 
+on database directory D:\Personal_projects\restaurantdag_organizer\restaurantdag with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@368239c8 
 Loaded from file:/C:/Users/gschr/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
 java.vendor=Oracle Corporation
 java.runtime.version=11+28

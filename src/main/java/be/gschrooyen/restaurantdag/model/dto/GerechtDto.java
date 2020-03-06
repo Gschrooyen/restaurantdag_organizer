@@ -4,15 +4,20 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 public class GerechtDto {
-    @NotNull
+
     private String naam;
-    @NotNull
-    @Min(0)
-    private double prijs;
-    @NotNull
-    private boolean isKindergerecht;
+    private Double prijs;
+    private Boolean isKindergerecht;
+    private String type;
 
     public GerechtDto() {
+    }
+
+    public GerechtDto(String naam, Double prijs, Boolean isKindergerecht, String type) {
+        this.naam = naam;
+        this.prijs = prijs;
+        this.isKindergerecht = isKindergerecht;
+        this.type = type;
     }
 
     public String getNaam() {
@@ -23,19 +28,27 @@ public class GerechtDto {
         this.naam = naam;
     }
 
-    public double getPrijs() {
+    public Double getPrijs() {
         return prijs;
     }
 
-    public void setPrijs(double prijs) {
+    public void setPrijs(Double prijs) {
         this.prijs = prijs;
     }
 
-    public boolean isKindergerecht() {
+    public Boolean isKindergerecht() {
         return isKindergerecht;
     }
 
-    public void setKindergerecht(boolean kindergerecht) {
+    public void setKindergerecht(Boolean kindergerecht) {
         this.isKindergerecht = kindergerecht;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

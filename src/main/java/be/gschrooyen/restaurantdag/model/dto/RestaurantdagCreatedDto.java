@@ -1,16 +1,17 @@
 package be.gschrooyen.restaurantdag.model.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class RestaurantdagCreatedDto {
     private long id;
     private String naam;
-    private long epochDate;
+    private LocalDateTime epochDate;
 
-    public RestaurantdagCreatedDto(long id, String naam, LocalDate datum) {
+    public RestaurantdagCreatedDto(long id, String naam, LocalDateTime datum) {
         this.id = id;
         this.naam = naam;
-        this.setEpochDate(datum);
+        this.epochDate = datum;
     }
 
     public long getId() {
@@ -29,11 +30,11 @@ public class RestaurantdagCreatedDto {
         this.naam = naam;
     }
 
-    public long getEpochDate() {
+    public LocalDateTime getEpochDate() {
         return epochDate;
     }
 
-    public void setEpochDate(LocalDate epochDate) {
-        this.epochDate = epochDate.toEpochDay();
+    public void setEpochDate(LocalDateTime epochDate) {
+        this.epochDate = epochDate;
     }
 }

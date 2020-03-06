@@ -4,15 +4,13 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table
 public class Gerecht {
 
     @Id
     @GeneratedValue
     private long id;
     private String naam;
-    private double prijs;
-    private boolean isKinderGerecht;
+    private String type;
     @ManyToOne
     private Restaurantdag restaurantdag;
     @ManyToMany
@@ -21,9 +19,33 @@ public class Gerecht {
     public Gerecht() {
     }
 
-    public Gerecht(String naam, double prijs, boolean kindergerecht) {
+    public Gerecht(String naam, String type, Restaurantdag resto) {
         this.naam = naam;
-        this.prijs = prijs;
-        this.isKinderGerecht = kindergerecht;
+        this.type = type;
+        this.restaurantdag = resto;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getNaam() {
+        return naam;
+    }
+
+    public void setNaam(String naam) {
+        this.naam = naam;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

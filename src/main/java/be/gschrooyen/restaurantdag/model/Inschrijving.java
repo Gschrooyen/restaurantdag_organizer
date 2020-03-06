@@ -11,7 +11,6 @@ import java.util.Map;
 
 
 @Entity
-@Table
 public class Inschrijving {
 
     @Id
@@ -26,4 +25,6 @@ public class Inschrijving {
     @NotNull
     @NonNull
     private LocalDateTime tijdstip;
+    @ManyToOne
+    private Restaurantdag restaurantdag;
 }
