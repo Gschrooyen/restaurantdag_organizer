@@ -18,7 +18,7 @@ public class Restaurantdag {
     private String naam;
     @NotNull
     private LocalDateTime datum;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Inschrijving> inschrijvingen;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Gerecht> gerechten;

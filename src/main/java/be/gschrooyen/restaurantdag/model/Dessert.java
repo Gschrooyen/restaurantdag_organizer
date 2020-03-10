@@ -8,4 +8,7 @@ public class Dessert extends Gerecht {
     public Dessert(String naam, Restaurantdag resto) {
         super(naam, "dessert", resto);
     }
+
+    public Dessert() {
+    }
 }

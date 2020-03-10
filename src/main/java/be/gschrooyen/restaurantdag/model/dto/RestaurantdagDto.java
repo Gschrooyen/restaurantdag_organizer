@@ -1,11 +1,5 @@
 package be.gschrooyen.restaurantdag.model.dto;
 
-import be.gschrooyen.restaurantdag.model.Gerecht;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,14 +8,16 @@ public class RestaurantdagDto {
     private String naam;
     private LocalDateTime epochDate;
     private List<GerechtDto> gerechten;
+    private int inschrijvingen;
 
     public RestaurantdagDto() {
     }
 
-    public RestaurantdagDto(String naam, LocalDateTime epochDate, List<GerechtDto> gerechten) {
+    public RestaurantdagDto(String naam, LocalDateTime epochDate, List<GerechtDto> gerechten, int inschrijvingen) {
         this.naam = naam;
         this.epochDate = epochDate;
         this.gerechten = gerechten;
+        this.inschrijvingen = inschrijvingen;
     }
 
     public String getNaam() {
@@ -46,5 +42,13 @@ public class RestaurantdagDto {
 
     public void setGerechten(List<GerechtDto> gerechten) {
         this.gerechten = gerechten;
+    }
+
+    public int getInschrijvingen() {
+        return inschrijvingen;
+    }
+
+    public void setInschrijvingen(int inschrijvingen) {
+        this.inschrijvingen = inschrijvingen;
     }
 }

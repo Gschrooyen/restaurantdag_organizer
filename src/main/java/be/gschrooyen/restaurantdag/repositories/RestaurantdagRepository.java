@@ -7,5 +7,5 @@ import java.time.LocalDateTime;
 
 @Repository
 public interface RestaurantdagRepository extends JpaRepository<Restaurantdag, Long> {
-    Restaurantdag getFirstByDatumAfter(LocalDateTime datum);
+    Restaurantdag getFirstByDatumAfterOrderByDatumDesc(LocalDateTime datum);
 }
