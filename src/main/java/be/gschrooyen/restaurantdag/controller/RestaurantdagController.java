@@ -6,6 +6,7 @@ import be.gschrooyen.restaurantdag.model.Inschrijving;
 import be.gschrooyen.restaurantdag.model.Restaurantdag;
 import be.gschrooyen.restaurantdag.model.dto.*;
 import be.gschrooyen.restaurantdag.service.RestaurantdagService;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +49,7 @@ public class RestaurantdagController {
                 }
                 return new GerechtDto(gerecht.getNaam(), null, null, gerecht.getType());
             }).collect(Collectors.toList());
-            return new ResponseEntity<RestaurantdagDto>(new RestaurantdagDto(restaurantdag.getNaam(), restaurantdag.getDatum(), gerechtDtos, restaurantdag.getInschrijvingen().size()), HttpStatus.OK);
+            return new ResponseEntity<RestaurantdagDto>(new RestaurantdagDto(restaurantdag.getNaam(), restaurantdag.getDatum(), gerechtDtos, restaurantdag.getInschrijvingen().size(), restaurantdag.getId()), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -56,7 +57,11 @@ public class RestaurantdagController {
 
     @GetMapping("/all")
     public ResponseEntity<List<RestaurantdagOverzichtDto>> getAll() {
-        List<RestaurantdagOverzichtDto> overzicht = restaurantdagService.getAll().stream().map(restaurantdag -> new RestaurantdagOverzichtDto(restaurantdag.getNaam(), restaurantdag.getDatum().format(DateTimeFormatter.ISO_DATE), restaurantdag.getInschrijvingen().size(), calculatePersonen(restaurantdag.getInschrijvingen()))).collect(Collectors.toList());
+        List<RestaurantdagOverzichtDto> overzicht =
+                restaurantdagService
+                        .getAll()
+                        .stream()
+                        .map(restaurantdag -> new RestaurantdagOverzichtDto(restaurantdag.getNaam(), restaurantdag.getDatum().format(DateTimeFormatter.ISO_DATE), restaurantdag.getInschrijvingen().size(), calculatePersonen(restaurantdag.getInschrijvingen()))).collect(Collectors.toList());
         return ResponseEntity.ok(overzicht);
     }
 
@@ -76,6 +81,22 @@ public class RestaurantdagController {
             return ResponseEntity.ok(inschrijvings.stream().map(inschrijving -> new InschrijvingDto(inschrijving.getId(), inschrijving.getNaam(), inschrijving.getGroep(), convertBestellingen(inschrijving.getBestellingen()), inschrijving.getTijdstip().format(DateTimeFormatter.ISO_TIME))).collect(Collectors.toList()));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RestaurantdagDto> getById(@PathVariable long id){
+        try {
+            Restaurantdag restaurantdag = restaurantdagService.getById(id);
+            List<GerechtDto> gerechtDtos = restaurantdag.getGerechten().stream().map(gerecht -> {
+                if (gerecht instanceof HoofdGerecht) {
+                    return new GerechtDto(gerecht.getNaam(), ((HoofdGerecht) gerecht).getPrijs(), ((HoofdGerecht) gerecht).isKinderGerecht(), gerecht.getType());
+                }
+                return new GerechtDto(gerecht.getNaam(), null, null, gerecht.getType());
+            }).collect(Collectors.toList());
+            return new ResponseEntity<RestaurantdagDto>(new RestaurantdagDto(restaurantdag.getNaam(), restaurantdag.getDatum(), gerechtDtos, restaurantdag.getInschrijvingen().size(), restaurantdag.getId()), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

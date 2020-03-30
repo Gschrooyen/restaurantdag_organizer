@@ -5,6 +5,7 @@ import java.util.List;
 
 public class RestaurantdagDto {
 
+    private long id;
     private String naam;
     private LocalDateTime epochDate;
     private List<GerechtDto> gerechten;
@@ -13,11 +14,12 @@ public class RestaurantdagDto {
     public RestaurantdagDto() {
     }
 
-    public RestaurantdagDto(String naam, LocalDateTime epochDate, List<GerechtDto> gerechten, int inschrijvingen) {
+    public RestaurantdagDto(String naam, LocalDateTime epochDate, List<GerechtDto> gerechten, int inschrijvingen, long id) {
         this.naam = naam;
         this.epochDate = epochDate;
         this.gerechten = gerechten;
         this.inschrijvingen = inschrijvingen;
+        this.id = id;
     }
 
     public String getNaam() {
@@ -50,5 +52,13 @@ public class RestaurantdagDto {
 
     public void setInschrijvingen(int inschrijvingen) {
         this.inschrijvingen = inschrijvingen;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

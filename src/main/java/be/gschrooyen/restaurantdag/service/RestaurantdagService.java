@@ -47,4 +47,8 @@ public class RestaurantdagService {
     public Restaurantdag getRestaurantdag(long id) {
         return repository.getOne(id);
     }
+
+    public Restaurantdag getById(long id) {
+        return repository.getOne(id);
+    }
 }
