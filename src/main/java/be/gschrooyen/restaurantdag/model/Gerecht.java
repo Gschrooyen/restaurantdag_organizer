@@ -48,4 +48,26 @@ public class Gerecht {
     public void setType(String type) {
         this.type = type;
     }
+
+    public Restaurantdag getRestaurantdag() {
+        return restaurantdag;
+    }
+
+    public void setRestaurantdag(Restaurantdag restaurantdag) {
+        this.restaurantdag = restaurantdag;
+    }
+
+    public List<Bestelling> getBestellingen() {
+        return bestellingen;
+    }
+
+    public void setBestellingen(List<Bestelling> bestellingen) {
+        this.bestellingen = bestellingen;
+    }
+
+    @PreRemove
+    public void preDelete(){
+        this.getRestaurantdag().getGerechten().remove(this);
+        this.setRestaurantdag(null);
+    }
 }

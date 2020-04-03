@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 
 public class GerechtDto {
 
+    private Long id;
     private String naam;
     private Double prijs;
     private Boolean isKindergerecht;
@@ -13,7 +14,8 @@ public class GerechtDto {
     public GerechtDto() {
     }
 
-    public GerechtDto(String naam, Double prijs, Boolean isKindergerecht, String type) {
+    public GerechtDto(String naam, Double prijs, Boolean isKindergerecht, String type, Long id) {
+        this.id = id;
         this.naam = naam;
         this.prijs = prijs;
         this.isKindergerecht = isKindergerecht;
@@ -50,5 +52,13 @@ public class GerechtDto {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

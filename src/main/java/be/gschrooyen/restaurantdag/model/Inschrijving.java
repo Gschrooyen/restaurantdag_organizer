@@ -16,17 +16,24 @@ public class Inschrijving {
     @Id
     @GeneratedValue
     private long id;
-    @NotBlank
-    @NonNull
     private String naam;
     private String groep;
     @OneToMany
     private List<Bestelling> bestellingen;
-    @NotNull
-    @NonNull
     private LocalDateTime tijdstip;
     @ManyToOne
     private Restaurantdag restaurantdag;
+
+    public Inschrijving() {
+    }
+
+    public Inschrijving(String naam, String groep, List<Bestelling> bestellingen, LocalDateTime tijdstip, Restaurantdag restaurantdag) {
+        this.naam = naam;
+        this.groep = groep;
+        this.bestellingen = bestellingen;
+        this.tijdstip = tijdstip;
+        this.restaurantdag = restaurantdag;
+    }
 
     public long getId() {
         return id;

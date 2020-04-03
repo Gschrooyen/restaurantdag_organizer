@@ -2,6 +2,7 @@ package be.gschrooyen.restaurantdag.model.dto;
 
 public class RestaurantdagOverzichtDto {
 
+    private long id;
     private String naam;
     private String datum;
     private int inschrijvingen;
@@ -10,11 +11,12 @@ public class RestaurantdagOverzichtDto {
     public RestaurantdagOverzichtDto() {
     }
 
-    public RestaurantdagOverzichtDto(String naam, String datum, int inschrijvingen, double personen) {
+    public RestaurantdagOverzichtDto(String naam, String datum, int inschrijvingen, double personen, long id) {
         this.naam = naam;
         this.datum = datum;
         this.inschrijvingen = inschrijvingen;
         this.personen = personen;
+        this.id = id;
     }
 
     public String getNaam() {
@@ -47,5 +49,13 @@ public class RestaurantdagOverzichtDto {
 
     public void setPersonen(double personen) {
         this.personen = personen;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

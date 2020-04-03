@@ -10,10 +10,16 @@ public class Bestelling {
     @GeneratedValue
     private long id;
     @ManyToOne
-    private Inschrijving inschrijving;
-    @ManyToOne
     private Gerecht gerecht;
     private int aantal;
+
+    public Bestelling() {
+    }
+
+    public Bestelling(Gerecht gerecht, int aantal) {
+        this.gerecht = gerecht;
+        this.aantal = aantal;
+    }
 
     public long getId() {
         return id;
@@ -21,14 +27,6 @@ public class Bestelling {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Inschrijving getInschrijving() {
-        return inschrijving;
-    }
-
-    public void setInschrijving(Inschrijving inschrijving) {
-        this.inschrijving = inschrijving;
     }
 
     public Gerecht getGerecht() {

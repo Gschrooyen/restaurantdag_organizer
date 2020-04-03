@@ -5,7 +5,7 @@ import java.util.List;
 
 public class RestaurantdagDto {
 
-    private long id;
+    private Long id;
     private String naam;
     private LocalDateTime epochDate;
     private List<GerechtDto> gerechten;

@@ -81,4 +81,13 @@ public class Restaurantdag {
                 ", gerechten=" + gerechten +
                 '}';
     }
+
+    @PreRemove
+    public void preremove(){
+        for (Gerecht gerecht :
+                this.gerechten) {
+            gerecht.setRestaurantdag(null);
+        }
+        this.setGerechten(null);
+    }
 }

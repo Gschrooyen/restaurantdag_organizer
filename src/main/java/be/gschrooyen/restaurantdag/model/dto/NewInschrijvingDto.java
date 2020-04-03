@@ -2,31 +2,21 @@ package be.gschrooyen.restaurantdag.model.dto;
 
 import java.util.List;
 
-public class InschrijvingDto {
+public class NewInschrijvingDto {
 
-    private long id;
     private String naam;
     private String groep;
-    private double personen;
     private String tijdstip;
+    private List<BestellingDto> bestelling;
 
-    public InschrijvingDto() {
+    public NewInschrijvingDto() {
     }
 
-    public InschrijvingDto(long id, String naam, String groep, String tijdstip, double personen) {
-        this.id = id;
+    public NewInschrijvingDto(String naam, String groep, String tijdstip, List<BestellingDto> bestelling) {
         this.naam = naam;
         this.groep = groep;
         this.tijdstip = tijdstip;
-        this.personen = personen;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+        this.bestelling = bestelling;
     }
 
     public String getNaam() {
@@ -53,11 +43,11 @@ public class InschrijvingDto {
         this.tijdstip = tijdstip;
     }
 
-    public double getPersonen() {
-        return personen;
+    public List<BestellingDto> getBestelling() {
+        return bestelling;
     }
 
-    public void setPersonen(double personen) {
-        this.personen = personen;
+    public void setBestelling(List<BestellingDto> bestelling) {
+        this.bestelling = bestelling;
     }
 }
