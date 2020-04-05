@@ -6,7 +6,6 @@ import be.gschrooyen.restaurantdag.service.InschrijvingService;
 import be.gschrooyen.restaurantdag.service.RestaurantdagService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,10 +27,6 @@ public class RestaurantdagController {
         this.inschrijvingService = inschrijvingService;
     }
 
-    /**
-     * @param restaurantdagDto
-     * @return the newly made Restaurantdag
-     */
     @PostMapping("/new")
     public RestaurantdagCreatedDto nieuw(@RequestBody RestaurantdagDto restaurantdagDto, HttpServletRequest request) {
         restaurantdagDto.setEpochDate(restaurantdagDto.getEpochDate().plusDays(1));
@@ -61,7 +56,7 @@ public class RestaurantdagController {
                 restaurantdagService
                         .getAll()
                         .stream()
-                        .map(restaurantdag -> new RestaurantdagOverzichtDto(restaurantdag.getNaam(), restaurantdag.getDatum().format(DateTimeFormatter.ISO_DATE), restaurantdag.getInschrijvingen().size(), calculatePersonen(restaurantdag.getInschrijvingen()), restaurantdag.getId())).collect(Collectors.toList());
+                        .map(restaurantdag -> new RestaurantdagOverzichtDto(restaurantdag.getNaam(), restaurantdag.getDatum().format(DateTimeFormatter.ISO_DATE), restaurantdag.getInschrijvingen().size(), calculateVolwassenen(restaurantdag.getInschrijvingen()), restaurantdag.getId())).collect(Collectors.toList());
         return ResponseEntity.ok(overzicht);
     }
 
@@ -76,7 +71,7 @@ public class RestaurantdagController {
                 restaurantdag = restaurantdagService.getRestaurantdag(Long.parseLong(id));
             }
             inschrijvings = restaurantdag.getInschrijvingen();
-            return ResponseEntity.ok(inschrijvings.stream().map(inschrijving -> new InschrijvingDto(inschrijving.getId(), inschrijving.getNaam(), inschrijving.getGroep(), inschrijving.getTijdstip().getHour() + ":" + inschrijving.getTijdstip().getMinute(), calculatePersonen(List.of(inschrijving)))).collect(Collectors.toList()));
+            return ResponseEntity.ok(inschrijvings.stream().map(inschrijving -> new InschrijvingDto(inschrijving.getId(), inschrijving.getNaam(), inschrijving.getGroep(), inschrijving.getTijdstip().getHour() + ":" + ((inschrijving.getTijdstip().getMinute() < 10) ? "0" + inschrijving.getTijdstip().getMinute() : inschrijving.getTijdstip().getMinute()), calculateVolwassenen(List.of(inschrijving)), calculateKinderen(List.of(inschrijving)))).collect(Collectors.toList()));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
@@ -137,7 +132,7 @@ public class RestaurantdagController {
     public ResponseEntity<InschrijvingDto> newInschrijving(@RequestBody NewInschrijvingDto newInschrijvingDto, @PathVariable String restaurantdagId){
         long rid = "current".equals(restaurantdagId)? restaurantdagService.getNext().getId() : Long.parseLong(restaurantdagId);
         Inschrijving i = inschrijvingService.nieuw(newInschrijvingDto.getNaam(), newInschrijvingDto.getGroep(), newInschrijvingDto.getTijdstip(), newInschrijvingDto.getBestelling(), rid);
-        return ResponseEntity.ok(new InschrijvingDto(i.getId(), i.getNaam(), i.getGroep(), i.getTijdstip().getHour() + ":" + i.getTijdstip().getMinute(), calculatePersonen(List.of(i))));
+        return ResponseEntity.ok(new InschrijvingDto(i.getId(), i.getNaam(), i.getGroep(), i.getTijdstip().getHour() + ":" + ((i.getTijdstip().getMinute() < 10) ? "0" + i.getTijdstip().getMinute() : i.getTijdstip().getMinute()), calculateVolwassenen(List.of(i)), calculateKinderen(List.of(i))));
     }
 
     private List<BestellingDto> convertBestellingen(List<Bestelling> bestellingen) {
@@ -154,15 +149,27 @@ public class RestaurantdagController {
         }).collect(Collectors.toList());
     }
 
-    private double calculatePersonen(List<Inschrijving> inschrijvings) {
+    private double calculateVolwassenen(List<Inschrijving> inschrijvings) {
+        double totaal = 0;
+        for (Inschrijving inschrijving : inschrijvings) {
+            for (Bestelling bestelling : inschrijving.getBestellingen()) {
+                if (bestelling.getGerecht() instanceof HoofdGerecht) {
+                    if (!((HoofdGerecht) bestelling.getGerecht()).isKinderGerecht()) {
+                        totaal += (bestelling.getAantal());
+                    }
+                }
+            }
+        }
+        return totaal;
+    }
+
+    private double calculateKinderen(List<Inschrijving> inschrijvings) {
         double totaal = 0;
         for (Inschrijving inschrijving : inschrijvings) {
             for (Bestelling bestelling : inschrijving.getBestellingen()) {
                 if (bestelling.getGerecht() instanceof HoofdGerecht) {
                     if (((HoofdGerecht) bestelling.getGerecht()).isKinderGerecht()) {
-                        totaal += (bestelling.getAantal() / 2D);
-                    } else {
-                        totaal += bestelling.getAantal();
+                        totaal += (bestelling.getAantal());
                     }
                 }
             }
